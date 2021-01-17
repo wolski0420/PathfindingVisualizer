@@ -13,7 +13,8 @@ import javafx.scene.shape.Rectangle;
 
 public class PFVController implements Subscriber {
     private PathFinder pathFinder;
-    private ToggleGroup toggleGroup;
+    private ToggleGroup sizeToggleGroup;
+    private ToggleGroup algorithmToggleGroup;
     @FXML
     public Menu algorithmMenu;
     @FXML
@@ -29,16 +30,13 @@ public class PFVController implements Subscriber {
     @FXML
     public CheckMenuItem addModeButton;
 
-    @FXML
-    public void initialize(){
-        setStartPauseButton();
-        setToggleGroup();
-        setRadioMenuItems();
-    }
-
     public void setPathFinder(PathFinder pathFinder) {
         this.pathFinder = pathFinder;
         initBoard();
+        setStartPauseButton();
+        setToggleGroup();
+        setRadioMenuItems();
+        setAlgorithmMenu();
     }
 
     private void initBoard(){
@@ -70,10 +68,10 @@ public class PFVController implements Subscriber {
     }
 
     private void setToggleGroup(){
-        toggleGroup = new ToggleGroup();
-        tenSizeMenuItem.setToggleGroup(toggleGroup);
-        fifteenSizeMenuItem.setToggleGroup(toggleGroup);
-        twentySizeMenuItem.setToggleGroup(toggleGroup);
+        sizeToggleGroup = new ToggleGroup();
+        tenSizeMenuItem.setToggleGroup(sizeToggleGroup);
+        fifteenSizeMenuItem.setToggleGroup(sizeToggleGroup);
+        twentySizeMenuItem.setToggleGroup(sizeToggleGroup);
     }
 
     private void setRadioMenuItems(){
@@ -84,6 +82,8 @@ public class PFVController implements Subscriber {
                 pathFinder.changeTarget(new Point(9,5));
                 pathFinder.reset();
                 initBoard();
+                if(startPauseButton.getText().equals("Pause"))
+                    startPauseButton.fire();
             }
         });
 
@@ -94,6 +94,8 @@ public class PFVController implements Subscriber {
                 pathFinder.changeTarget(new Point(14,7));
                 pathFinder.reset();
                 initBoard();
+                if(startPauseButton.getText().equals("Pause"))
+                    startPauseButton.fire();
             }
         });
 
@@ -104,10 +106,29 @@ public class PFVController implements Subscriber {
                 pathFinder.changeTarget(new Point(19,10));
                 pathFinder.reset();
                 initBoard();
+                if(startPauseButton.getText().equals("Pause"))
+                    startPauseButton.fire();
             }
         });
 
         tenSizeMenuItem.setSelected(true);
+    }
+
+    public void setAlgorithmMenu(){
+        algorithmToggleGroup = new ToggleGroup();
+
+        pathFinder.getAlgorithms().forEach(algorithm -> {
+            RadioMenuItem radioMenuItem = new RadioMenuItem();
+            radioMenuItem.setText(algorithm.getName());
+            radioMenuItem.setOnAction(event -> {
+                pathFinder.chooseAlgorithm(algorithm);
+            });
+            radioMenuItem.setToggleGroup(algorithmToggleGroup);
+            algorithmMenu.getItems().add(radioMenuItem);
+        });
+
+        RadioMenuItem radioMenuItem = (RadioMenuItem) algorithmMenu.getItems().get(0);
+        radioMenuItem.setSelected(true);
     }
 
     @FXML

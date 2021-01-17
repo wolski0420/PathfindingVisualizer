@@ -102,4 +102,9 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
         foundPath.clear();
         queue.clear();
     }
+
+    @Override
+    public String getName() {
+        return "Dijkstra";
+    }
 }

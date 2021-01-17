@@ -9,4 +9,5 @@ public interface Algorithm {
     void nextStep();
     LinkedList<Field> getPath();
     void reset();
+    String getName();
 }
