@@ -16,9 +16,9 @@
             <children>
                 <MenuBar>
                     <Menu text="Size">
-                        <CheckMenuItem text="10x10" fx:id="tenSizeMenuItem"/>
-                        <CheckMenuItem text="15x15" fx:id="fifteenSizeMenuItem"/>
-                        <CheckMenuItem text="20x20" fx:id="twentySizeMenuItem"/>
+                        <RadioMenuItem text="10x10" fx:id="tenSizeMenuItem"/>
+                        <RadioMenuItem text="15x15" fx:id="fifteenSizeMenuItem"/>
+                        <RadioMenuItem text="20x20" fx:id="twentySizeMenuItem"/>
                     </Menu>
 
                     <Menu fx:id="algorithmMenu" text="Algorithm">

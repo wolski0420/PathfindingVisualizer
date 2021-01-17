@@ -2,20 +2,18 @@ package agh.edu.pl.controllers;
 
 import agh.edu.pl.data.Field;
 import agh.edu.pl.data.Point;
-import agh.edu.pl.data.Status;
 import agh.edu.pl.executable.PathFinder;
 import agh.edu.pl.observable.Subscriber;
 import agh.edu.pl.translators.StatusToColor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
 public class PFVController implements Subscriber {
     private PathFinder pathFinder;
+    private ToggleGroup toggleGroup;
     @FXML
     public Menu algorithmMenu;
     @FXML
@@ -23,17 +21,19 @@ public class PFVController implements Subscriber {
     @FXML
     public GridPane gridPane;
     @FXML
-    public CheckMenuItem tenSizeMenuItem;
+    public RadioMenuItem tenSizeMenuItem;
     @FXML
-    public CheckMenuItem fifteenSizeMenuItem;
+    public RadioMenuItem fifteenSizeMenuItem;
     @FXML
-    public CheckMenuItem twentySizeMenuItem;
+    public RadioMenuItem twentySizeMenuItem;
     @FXML
     public CheckMenuItem addModeButton;
 
     @FXML
     public void initialize(){
         setStartPauseButton();
+        setToggleGroup();
+        setRadioMenuItems();
     }
 
     public void setPathFinder(PathFinder pathFinder) {
@@ -42,11 +42,12 @@ public class PFVController implements Subscriber {
     }
 
     private void initBoard(){
+        gridPane.getChildren().clear();
         for (int y = 0; y < pathFinder.getBoard().getHeight(); y++) {
             for (int x = 0; x < pathFinder.getBoard().getWidth(); x++) {
                 Field field = pathFinder.getBoard().getField(new Point(x, y));
                 field.addSubscriber(this);
-                Rectangle rectangle = new Rectangle(50, 50);
+                Rectangle rectangle = new Rectangle(30, 30);
                 rectangle.setFill(StatusToColor.translate(field.getStatus()));
                 gridPane.add(rectangle, x, y);
             }
@@ -66,6 +67,47 @@ public class PFVController implements Subscriber {
                 startPauseButton.setStyle("-fx-background-color: #00c700");
             }
         });
+    }
+
+    private void setToggleGroup(){
+        toggleGroup = new ToggleGroup();
+        tenSizeMenuItem.setToggleGroup(toggleGroup);
+        fifteenSizeMenuItem.setToggleGroup(toggleGroup);
+        twentySizeMenuItem.setToggleGroup(toggleGroup);
+    }
+
+    private void setRadioMenuItems(){
+        tenSizeMenuItem.setOnAction(event -> {
+            if(tenSizeMenuItem.isSelected()){
+                pathFinder.resize(10,10);
+                pathFinder.changeSource(new Point(0, 5));
+                pathFinder.changeTarget(new Point(9,5));
+                pathFinder.reset();
+                initBoard();
+            }
+        });
+
+        fifteenSizeMenuItem.setOnAction(event -> {
+            if(fifteenSizeMenuItem.isSelected()){
+                pathFinder.resize(15,15);
+                pathFinder.changeSource(new Point(0, 7));
+                pathFinder.changeTarget(new Point(14,7));
+                pathFinder.reset();
+                initBoard();
+            }
+        });
+
+        twentySizeMenuItem.setOnAction(event -> {
+            if(twentySizeMenuItem.isSelected()){
+                pathFinder.resize(20,20);
+                pathFinder.changeSource(new Point(0, 10));
+                pathFinder.changeTarget(new Point(19,10));
+                pathFinder.reset();
+                initBoard();
+            }
+        });
+
+        tenSizeMenuItem.setSelected(true);
     }
 
     @FXML
