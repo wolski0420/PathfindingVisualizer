@@ -1,6 +1,7 @@
 package agh.edu.pl.executable;
 
 import agh.edu.pl.algorithms.Algorithm;
+import agh.edu.pl.data.Status;
 import javafx.animation.AnimationTimer;
 
 // generally in java, we can extend only one class, that's why I have nested AnimationTimer here,
@@ -24,8 +25,7 @@ public class AlgorithmExecutor {
                 prevTime = now;
 
                 if(algorithm.finished()){
-                    algorithm.getPath().get(pathIterIndex++).toPath();
-                    algorithm.nextStep();
+                    algorithm.getPath().get(pathIterIndex++).setStatus(Status.IN_PATH);
                     if(pathIterIndex == algorithm.getPath().size()){
                         stop();
                     }

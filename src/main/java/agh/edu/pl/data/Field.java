@@ -1,50 +1,35 @@
 package agh.edu.pl.data;
 
-public class Field {
-    private Status currentStatus = Status.RESETED;
+import agh.edu.pl.observable.Observable;
 
-    public void reset(){
-        currentStatus = Status.RESETED;
+public class Field extends Observable {
+    private final Point location;
+    private Status status = Status.RESETED;
+
+    public Field(Point location) {
+        this.location = location;
     }
 
-    public boolean isReseted(){
-        return currentStatus == Status.RESETED;
+    public Status getStatus() {
+        return status;
     }
 
-    public void process(){
-        currentStatus = Status.PROCESSING;
+    public void setStatus(Status status) {
+        this.status = status;
+        notifySubscribers();
     }
 
-    public boolean isBeingProcessed(){
-        return currentStatus == Status.PROCESSING;
+    public Point getLocation() {
+        return location;
     }
 
-    public void visit(){
-        currentStatus = Status.VISITED;
-    }
-
-    public boolean isVisited(){
-        return currentStatus == Status.VISITED;
-    }
-
-    public void toPath(){
-        currentStatus = Status.IN_PATH;
-    }
-
-    public boolean isInPath(){
-        return currentStatus == Status.IN_PATH;
-    }
-
-    public void block(){
-        currentStatus = Status.BLOCKED;
-    }
-
-    public boolean isBlocked(){
-        return currentStatus == Status.BLOCKED;
+    @Override
+    protected void notifySubscribers() {
+        subscribers.forEach(subscriber -> subscriber.update(this));
     }
 
     @Override
     public String toString() {
-        return currentStatus.toString();
+        return status.toString();
     }
 }

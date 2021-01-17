@@ -17,7 +17,7 @@ public class Board {
         fields = new Field[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                fields[y][x] = new Field();
+                fields[y][x] = new Field(new Point(x,y));
             }
         }
     }
@@ -35,11 +35,6 @@ public class Board {
     }
 
     public void clear(){
-        Arrays.stream(fields).flatMap(Arrays::stream).forEach(Field::reset);
-    }
-
-    public void print(){
-        Arrays.stream(fields).forEach(arr -> System.out.println(Arrays.toString(arr)));
-        System.out.println("================================================");
+        Arrays.stream(fields).flatMap(Arrays::stream).forEach(field -> field.setStatus(Status.RESETED));
     }
 }

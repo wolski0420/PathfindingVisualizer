@@ -23,7 +23,9 @@ public class Main extends Application {
             loader.setLocation(PFVController.class.getResource("../../../../view/visualizerView.fxml"));
             BorderPane layout = loader.load();
 
+            PFVController controller = loader.getController();
             PathFinder pathFinder = new PathFinder();
+            controller.setPathFinder(pathFinder);
             pathFinder.start();
 
             Scene scene = new Scene(layout);

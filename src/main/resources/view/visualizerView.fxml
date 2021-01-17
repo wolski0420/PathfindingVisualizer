@@ -9,6 +9,46 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="agh.edu.pl.controllers.PFVController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="800.0" prefWidth="800.0">
+    <top>
+        <HBox>
+            <children>
+                <MenuBar>
+                    <Menu text="Size">
+                        <CheckMenuItem text="10x10" fx:id="tenSizeMenuItem"/>
+                        <CheckMenuItem text="15x15" fx:id="fifteenSizeMenuItem"/>
+                        <CheckMenuItem text="20x20" fx:id="twentySizeMenuItem"/>
+                    </Menu>
+
+                    <Menu fx:id="algorithmMenu" text="Algorithm">
+
+                    </Menu>
+
+                    <Menu text="Obstacles">
+                        <MenuItem text="Generate" onAction="#handleGenerateMenuItem"/>
+                        <CheckMenuItem text="Add mode" fx:id="addModeButton"/>
+                    </Menu>
+                </MenuBar>
+
+                <Button fx:id="startPauseButton" text="Start">
+
+                </Button>
+
+                <Button text="Reset" onAction="#handleResetButton">
+
+                </Button>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox>
+            <children>
+                <GridPane fx:id="gridPane">
+
+                </GridPane>
+            </children>
+        </HBox>
+    </center>
 
 </BorderPane>

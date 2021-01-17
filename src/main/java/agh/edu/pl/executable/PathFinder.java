@@ -5,6 +5,7 @@ import agh.edu.pl.algorithms.dijkstra.DijkstraAlgorithm;
 import agh.edu.pl.data.Board;
 import agh.edu.pl.data.Parameters;
 import agh.edu.pl.data.Point;
+import agh.edu.pl.data.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +47,12 @@ public class PathFinder {
             int x = random.nextInt(board.getWidth());
             int y = random.nextInt(board.getHeight());
 
-            board.getFields()[y][x].block();
+            board.getFields()[y][x].setStatus(Status.BLOCKED);
         }
     }
 
     public void addObstacle(Point point){
-        board.getFields()[point.y][point.x].block();
+        board.getFields()[point.y][point.x].setStatus(Status.BLOCKED);
     }
 
     public void changeSource(Point point){
@@ -73,5 +74,13 @@ public class PathFinder {
     public void reset(){
         algorithmExecutor.reset();
         board.clear();
+    }
+
+    public List<Algorithm> getAlgorithms() {
+        return algorithms;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }
