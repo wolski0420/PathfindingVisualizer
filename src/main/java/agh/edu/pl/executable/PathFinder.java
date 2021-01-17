@@ -54,22 +54,22 @@ public class PathFinder {
 
             Point check = new Point(x, y);
             if(!check.equals(parameters.getSource()) && !check.equals(parameters.getTarget()))
-                board.getFields()[y][x].setStatus(Status.BLOCKED);
+                board.getField(check).setStatus(Status.BLOCKED);
         }
     }
 
     public void addObstacle(Point point){
-        board.getFields()[point.y][point.x].setStatus(Status.BLOCKED);
+        board.getField(point).setStatus(Status.BLOCKED);
     }
 
     public void changeSource(Point point){
         parameters.setSource(point);
-        board.getFields()[point.y][point.x].setStatus(Status.SOURCE);
+        board.getField(point).setStatus(Status.SOURCE);
     }
 
     public void changeTarget(Point point){
         parameters.setTarget(point);
-        board.getFields()[point.y][point.x].setStatus(Status.TARGET);
+        board.getField(point).setStatus(Status.TARGET);
     }
 
     public void start(){

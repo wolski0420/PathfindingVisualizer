@@ -1,6 +1,7 @@
 package agh.edu.pl.controllers;
 
 import agh.edu.pl.data.Field;
+import agh.edu.pl.data.Point;
 import agh.edu.pl.data.Status;
 import agh.edu.pl.executable.PathFinder;
 import agh.edu.pl.observable.Subscriber;
@@ -43,7 +44,7 @@ public class PFVController implements Subscriber {
     private void initBoard(){
         for (int y = 0; y < pathFinder.getBoard().getHeight(); y++) {
             for (int x = 0; x < pathFinder.getBoard().getWidth(); x++) {
-                Field field = pathFinder.getBoard().getFields()[y][x];
+                Field field = pathFinder.getBoard().getField(new Point(x, y));
                 field.addSubscriber(this);
                 Rectangle rectangle = new Rectangle(50, 50);
                 rectangle.setFill(StatusToColor.translate(field.getStatus()));

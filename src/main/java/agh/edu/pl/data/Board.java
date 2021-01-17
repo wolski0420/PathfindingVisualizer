@@ -23,10 +23,6 @@ public class Board {
         }
     }
 
-    public Field[][] getFields() {
-        return fields;
-    }
-
     public Field getField(Point point){
         return fields[point.y][point.x];
     }
@@ -37,6 +33,10 @@ public class Board {
 
     public int getWidth() {
         return width;
+    }
+
+    public boolean inBounds(Point point){
+        return point.x >= 0 && point.x < width && point.y >= 0 && point.y < height;
     }
 
     public void clear(){

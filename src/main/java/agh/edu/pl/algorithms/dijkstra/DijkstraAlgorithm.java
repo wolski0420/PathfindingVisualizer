@@ -50,16 +50,14 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
         if(!queue.isEmpty()){
             Point current = queue.poll().getPoint();
 
-            if(board.getFields()[current.y][current.x].getStatus() != Status.VISITED){
-                if(board.getFields()[current.y][current.x].getStatus() != Status.SOURCE &&
-                        board.getFields()[current.y][current.x].getStatus() != Status.TARGET)
-                    board.getFields()[current.y][current.x].setStatus(Status.VISITED);
+            if(board.getField(current).getStatus() != Status.VISITED){
+                if(board.getField(current).getStatus() != Status.SOURCE &&
+                        board.getField(current).getStatus() != Status.TARGET)
+                    board.getField(current).setStatus(Status.VISITED);
 
                 current.getNeighbours().forEach(nb -> {
-                    if(nb.x >= 0 && nb.x < board.getWidth() &&
-                            nb.y >= 0 && nb.y < board.getHeight() &&
-                            board.getFields()[nb.y][nb.x].getStatus() != Status.VISITED &&
-                            board.getFields()[nb.y][nb.x].getStatus() != Status.BLOCKED){
+                    if(board.inBounds(nb) && board.getField(nb).getStatus() != Status.VISITED &&
+                            board.getField(nb).getStatus() != Status.BLOCKED){
 
                         // relaxation below
                         if(distances[nb.y][nb.x] > distances[current.y][current.x] + 1){
@@ -67,8 +65,8 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
                             predecessors[nb.y][nb.x] = current;
                             queue.add(new QueueNode(nb, distances[nb.y][nb.x]));
 
-                            if(board.getFields()[nb.y][nb.x].getStatus() != Status.TARGET)
-                                board.getFields()[nb.y][nb.x].setStatus(Status.PROCESSING);
+                            if(board.getField(nb).getStatus() != Status.TARGET)
+                                board.getField(nb).setStatus(Status.PROCESSING);
                         }
 
                     }
@@ -82,7 +80,7 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
             finished = true;
             Point current = parameters.getTarget();
             while(current != null){
-                foundPath.add(board.getFields()[current.y][current.x]);
+                foundPath.add(board.getField(current));
                 current = predecessors[current.y][current.x];
             }
 
