@@ -1,6 +1,7 @@
 package agh.edu.pl.controllers;
 
 import agh.edu.pl.data.Field;
+import agh.edu.pl.data.Status;
 import agh.edu.pl.executable.PathFinder;
 import agh.edu.pl.observable.Subscriber;
 import agh.edu.pl.translators.StatusToColor;
@@ -31,7 +32,7 @@ public class PFVController implements Subscriber {
 
     @FXML
     public void initialize(){
-
+        setStartPauseButton();
     }
 
     public void setPathFinder(PathFinder pathFinder) {
@@ -51,14 +52,32 @@ public class PFVController implements Subscriber {
         }
     }
 
+    private void setStartPauseButton(){
+        startPauseButton.setOnAction(event -> {
+            if(startPauseButton.getText().equals("Start")){
+                pathFinder.start();
+                startPauseButton.setText("Pause");
+                startPauseButton.setStyle("-fx-background-color: #fd2b2b");
+            }
+            else{
+                pathFinder.pause();
+                startPauseButton.setText("Start");
+                startPauseButton.setStyle("-fx-background-color: #00c700");
+            }
+        });
+    }
+
     @FXML
     public void handleGenerateMenuItem(ActionEvent actionEvent) {
-
+        pathFinder.generateObstacles();
     }
 
     @FXML
     public void handleResetButton(ActionEvent actionEvent) {
+        pathFinder.reset();
 
+        if(startPauseButton.getText().equals("Pause"))
+            startPauseButton.fire();
     }
 
     @Override

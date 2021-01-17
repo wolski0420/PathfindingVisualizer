@@ -19,8 +19,8 @@ public class PathFinder {
     private final Random random;
 
     public PathFinder() {
-        board = new Board(10,10);
-        parameters = new Parameters(new Point(0,5), new Point(9,5));
+        board = new Board();
+        parameters = new Parameters();
         algorithmExecutor = new AlgorithmExecutor();
         algorithms = new ArrayList<>();
         random = new Random();
@@ -28,9 +28,14 @@ public class PathFinder {
     }
 
     private void init(){
+        resize(10,10);
+
         algorithms.add(new DijkstraAlgorithm(parameters, board));
         // @TODO more algorithms to add
         algorithmExecutor.setAlgorithm(algorithms.get(0));
+
+        changeSource(new Point(0,5));
+        changeTarget(new Point(9,5));
     }
 
     public void resize(int width, int height){
@@ -47,7 +52,9 @@ public class PathFinder {
             int x = random.nextInt(board.getWidth());
             int y = random.nextInt(board.getHeight());
 
-            board.getFields()[y][x].setStatus(Status.BLOCKED);
+            Point check = new Point(x, y);
+            if(!check.equals(parameters.getSource()) && !check.equals(parameters.getTarget()))
+                board.getFields()[y][x].setStatus(Status.BLOCKED);
         }
     }
 
@@ -57,10 +64,12 @@ public class PathFinder {
 
     public void changeSource(Point point){
         parameters.setSource(point);
+        board.getFields()[point.y][point.x].setStatus(Status.SOURCE);
     }
 
     public void changeTarget(Point point){
         parameters.setTarget(point);
+        board.getFields()[point.y][point.x].setStatus(Status.TARGET);
     }
 
     public void start(){
@@ -74,6 +83,8 @@ public class PathFinder {
     public void reset(){
         algorithmExecutor.reset();
         board.clear();
+        board.getField(parameters.getSource()).setStatus(Status.SOURCE);
+        board.getField(parameters.getTarget()).setStatus(Status.TARGET);
     }
 
     public List<Algorithm> getAlgorithms() {

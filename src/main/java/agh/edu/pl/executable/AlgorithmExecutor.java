@@ -1,6 +1,7 @@
 package agh.edu.pl.executable;
 
 import agh.edu.pl.algorithms.Algorithm;
+import agh.edu.pl.data.Field;
 import agh.edu.pl.data.Status;
 import javafx.animation.AnimationTimer;
 
@@ -25,10 +26,14 @@ public class AlgorithmExecutor {
                 prevTime = now;
 
                 if(algorithm.finished()){
-                    algorithm.getPath().get(pathIterIndex++).setStatus(Status.IN_PATH);
-                    if(pathIterIndex == algorithm.getPath().size()){
+                    if(pathIterIndex >= algorithm.getPath().size()){
                         stop();
+                        return;
                     }
+
+                    Field field = algorithm.getPath().get(pathIterIndex++);
+                    if(field.getStatus() != Status.SOURCE && field.getStatus() != Status.TARGET)
+                        field.setStatus(Status.IN_PATH);
                 }
                 else{
                     algorithm.nextStep();
@@ -48,6 +53,7 @@ public class AlgorithmExecutor {
     public void reset(){
         executor.stop();
         algorithm.reset();
+        pathIterIndex = 0;
     }
 
     public void setDelay(long millisDelay) {

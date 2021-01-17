@@ -8,6 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+            stylesheets="css/styles.css"
             fx:controller="agh.edu.pl.controllers.PFVController"
             prefHeight="800.0" prefWidth="800.0">
     <top>
@@ -30,11 +31,11 @@
                     </Menu>
                 </MenuBar>
 
-                <Button fx:id="startPauseButton" text="Start">
+                <Button fx:id="startPauseButton" text="Start" styleClass="start-pause-button">
 
                 </Button>
 
-                <Button text="Reset" onAction="#handleResetButton">
+                <Button text="Reset" onAction="#handleResetButton" styleClass="reset-button">
 
                 </Button>
             </children>

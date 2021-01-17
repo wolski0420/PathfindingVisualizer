@@ -26,7 +26,6 @@ public class Main extends Application {
             PFVController controller = loader.getController();
             PathFinder pathFinder = new PathFinder();
             controller.setPathFinder(pathFinder);
-            pathFinder.start();
 
             Scene scene = new Scene(layout);
             primaryStage.setScene(scene);

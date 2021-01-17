@@ -7,8 +7,9 @@ public class Board {
     private int height;
     private int width;
 
-    public Board(int width, int height) {
-        resize(width, height);
+    public Board() {
+        height = -1;
+        width = -1;
     }
 
     public void resize(int width, int height){
@@ -24,6 +25,10 @@ public class Board {
 
     public Field[][] getFields() {
         return fields;
+    }
+
+    public Field getField(Point point){
+        return fields[point.y][point.x];
     }
 
     public int getHeight() {

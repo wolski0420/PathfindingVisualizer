@@ -43,7 +43,6 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
             Point src = parameters.getSource();
             distances[src.y][src.x] = 0;
             queue.add(new QueueNode(new Point(src.x, src.y), distances[src.y][src.x]));
-            board.getFields()[src.y][src.x].setStatus(Status.RESETED);
 
             started = true;
         }
@@ -52,7 +51,9 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
             Point current = queue.poll().getPoint();
 
             if(board.getFields()[current.y][current.x].getStatus() != Status.VISITED){
-                board.getFields()[current.y][current.x].setStatus(Status.VISITED);
+                if(board.getFields()[current.y][current.x].getStatus() != Status.SOURCE &&
+                        board.getFields()[current.y][current.x].getStatus() != Status.TARGET)
+                    board.getFields()[current.y][current.x].setStatus(Status.VISITED);
 
                 current.getNeighbours().forEach(nb -> {
                     if(nb.x >= 0 && nb.x < board.getWidth() &&
@@ -65,7 +66,9 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
                             distances[nb.y][nb.x] = distances[current.y][current.x] + 1;
                             predecessors[nb.y][nb.x] = current;
                             queue.add(new QueueNode(nb, distances[nb.y][nb.x]));
-                            board.getFields()[nb.y][nb.x].setStatus(Status.PROCESSING);
+
+                            if(board.getFields()[nb.y][nb.x].getStatus() != Status.TARGET)
+                                board.getFields()[nb.y][nb.x].setStatus(Status.PROCESSING);
                         }
 
                     }

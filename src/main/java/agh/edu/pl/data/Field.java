@@ -27,9 +27,4 @@ public class Field extends Observable {
     protected void notifySubscribers() {
         subscribers.forEach(subscriber -> subscriber.update(this));
     }
-
-    @Override
-    public String toString() {
-        return status.toString();
-    }
 }

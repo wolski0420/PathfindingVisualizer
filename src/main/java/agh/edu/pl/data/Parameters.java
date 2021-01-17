@@ -4,11 +4,6 @@ public class Parameters {
     private Point source;
     private Point target;
 
-    public Parameters(Point source, Point target) {
-        this.source = source;
-        this.target = target;
-    }
-
     public Point getSource() {
         return source;
     }
