@@ -20,7 +20,7 @@ public class PathFinder {
 
     public PathFinder() {
         board = new Board();
-        parameters = new Parameters();
+        parameters = new Parameters(board);
         algorithmExecutor = new AlgorithmExecutor();
         algorithms = new ArrayList<>();
         random = new Random();
@@ -64,12 +64,10 @@ public class PathFinder {
 
     public void changeSource(Point point){
         parameters.setSource(point);
-        board.getField(point).setStatus(Status.SOURCE);
     }
 
     public void changeTarget(Point point){
         parameters.setTarget(point);
-        board.getField(point).setStatus(Status.TARGET);
     }
 
     public void start(){
@@ -83,8 +81,6 @@ public class PathFinder {
     public void reset(){
         algorithmExecutor.reset();
         board.clear();
-        board.getField(parameters.getSource()).setStatus(Status.SOURCE);
-        board.getField(parameters.getTarget()).setStatus(Status.TARGET);
     }
 
     public List<Algorithm> getAlgorithms() {

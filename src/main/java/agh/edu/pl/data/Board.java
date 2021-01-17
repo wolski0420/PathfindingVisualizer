@@ -40,6 +40,9 @@ public class Board {
     }
 
     public void clear(){
-        Arrays.stream(fields).flatMap(Arrays::stream).forEach(field -> field.setStatus(Status.RESETED));
+        Arrays.stream(fields)
+                .flatMap(Arrays::stream)
+                .filter(field -> field.getStatus() != Status.TARGET && field.getStatus() != Status.SOURCE)
+                .forEach(field -> field.setStatus(Status.RESETED));
     }
 }
