@@ -18,6 +18,8 @@ public class PFVController implements Subscriber {
     @FXML
     public Menu algorithmMenu;
     @FXML
+    public MenuItem generateMenuItem;
+    @FXML
     public Button startPauseButton;
     @FXML
     public GridPane gridPane;
@@ -37,6 +39,7 @@ public class PFVController implements Subscriber {
         setToggleGroup();
         setRadioMenuItems();
         setAlgorithmMenu();
+        setGenerateMenuItem();
     }
 
     private void initBoard(){
@@ -58,6 +61,7 @@ public class PFVController implements Subscriber {
                 pathFinder.start();
                 startPauseButton.setText("Pause");
                 startPauseButton.setStyle("-fx-background-color: #fd2b2b");
+                generateMenuItem.setDisable(true);
             }
             else{
                 pathFinder.pause();
@@ -114,7 +118,7 @@ public class PFVController implements Subscriber {
         tenSizeMenuItem.setSelected(true);
     }
 
-    public void setAlgorithmMenu(){
+    private void setAlgorithmMenu(){
         algorithmToggleGroup = new ToggleGroup();
 
         pathFinder.getAlgorithms().forEach(algorithm -> {
@@ -131,14 +135,16 @@ public class PFVController implements Subscriber {
         radioMenuItem.setSelected(true);
     }
 
-    @FXML
-    public void handleGenerateMenuItem(ActionEvent actionEvent) {
-        pathFinder.generateObstacles();
+    private void setGenerateMenuItem(){
+        generateMenuItem.setOnAction(event -> {
+            pathFinder.generateObstacles();
+        });
     }
 
     @FXML
     public void handleResetButton(ActionEvent actionEvent) {
         pathFinder.reset();
+        generateMenuItem.setDisable(false);
 
         if(startPauseButton.getText().equals("Pause"))
             startPauseButton.fire();

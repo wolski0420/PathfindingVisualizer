@@ -26,7 +26,7 @@
                     </Menu>
 
                     <Menu text="Obstacles">
-                        <MenuItem text="Generate" onAction="#handleGenerateMenuItem"/>
+                        <MenuItem text="Generate" fx:id="generateMenuItem"/>
                         <CheckMenuItem text="Add mode" fx:id="addModeButton"/>
                     </Menu>
                 </MenuBar>
