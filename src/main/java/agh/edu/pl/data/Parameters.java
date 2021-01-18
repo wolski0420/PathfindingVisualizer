@@ -7,6 +7,8 @@ public class Parameters {
 
     public Parameters(Board board) {
         this.board = board;
+        target = null;
+        source = null;
     }
 
     public Point getSource() {
@@ -14,6 +16,9 @@ public class Parameters {
     }
 
     public void setSource(Point source) {
+        if(this.source != null && board.inBounds(this.source))
+            board.getField(this.source).setStatus(Status.RESETED);
+
         this.source = source;
         board.getField(source).setStatus(Status.SOURCE);
     }
@@ -23,6 +28,9 @@ public class Parameters {
     }
 
     public void setTarget(Point target) {
+        if(this.target != null && board.inBounds(this.target))
+            board.getField(this.target).setStatus(Status.RESETED);
+
         this.target = target;
         board.getField(target).setStatus(Status.TARGET);
     }

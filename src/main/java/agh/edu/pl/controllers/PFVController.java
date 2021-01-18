@@ -23,6 +23,7 @@ public class PFVController implements Subscriber {
     private final StatusToDescription statusToDescription = new StatusToDescription();
     private PathFinder pathFinder;
     private ToggleGroup sizeToggleGroup;
+    private ToggleGroup pointChangeToggleGroup;
     private ToggleGroup algorithmToggleGroup;
     @FXML
     public Menu algorithmMenu;
@@ -43,6 +44,10 @@ public class PFVController implements Subscriber {
     @FXML
     public CheckMenuItem addModeButton;
     @FXML
+    public RadioMenuItem changeTargetModeMenuItem;
+    @FXML
+    public RadioMenuItem changeSourceModeMenuItem;
+    @FXML
     public VBox legendVBox;
 
     public void setPathFinder(PathFinder pathFinder) {
@@ -50,10 +55,11 @@ public class PFVController implements Subscriber {
         setGridPane();
         setStartPauseButton();
         setResetButton();
-        setToggleGroup();
-        setRadioMenuItems();
+        setSizeToggleGroup();
+        setSizeMenuItems();
         setAlgorithmMenu();
         setGenerateMenuItem();
+        setPointToggleGroup();
         setLegendVBox();
     }
 
@@ -77,6 +83,12 @@ public class PFVController implements Subscriber {
                     if(addModeButton.isSelected()){
                         pathFinder.toggleObstacle(new Point((int)rectangle.getX(), (int)rectangle.getY()));
                     }
+                    else if(changeSourceModeMenuItem.isSelected()){
+                        pathFinder.changeSource(new Point((int)rectangle.getX(), (int)rectangle.getY()));
+                    }
+                    else if(changeTargetModeMenuItem.isSelected()){
+                        pathFinder.changeTarget(new Point((int)rectangle.getX(), (int)rectangle.getY()));
+                    }
                 });
             }
         }
@@ -94,6 +106,8 @@ public class PFVController implements Subscriber {
                 generateMenuItem.setDisable(true);
                 addModeButton.setSelected(false);
                 addModeButton.setDisable(true);
+                changeSourceModeMenuItem.setDisable(true);
+                changeTargetModeMenuItem.setDisable(true);
             }
             else{
                 pathFinder.pause();
@@ -103,14 +117,14 @@ public class PFVController implements Subscriber {
         });
     }
 
-    private void setToggleGroup(){
+    private void setSizeToggleGroup(){
         sizeToggleGroup = new ToggleGroup();
         fifteenSizeMenuItem.setToggleGroup(sizeToggleGroup);
         twentySizeMenuItem.setToggleGroup(sizeToggleGroup);
         twentyFiveSizeMenuItem.setToggleGroup(sizeToggleGroup);
     }
 
-    private void setRadioMenuItems(){
+    private void setSizeMenuItems(){
         fifteenSizeMenuItem.setOnAction(event -> {
             if(fifteenSizeMenuItem.isSelected()){
                 pathFinder.resize(15,15);
@@ -167,11 +181,19 @@ public class PFVController implements Subscriber {
         });
     }
 
+    private void setPointToggleGroup(){
+        pointChangeToggleGroup = new ToggleGroup();
+        changeTargetModeMenuItem.setToggleGroup(pointChangeToggleGroup);
+        changeSourceModeMenuItem.setToggleGroup(pointChangeToggleGroup);
+    }
+
     private void setResetButton() {
         resetButton.setOnAction(event -> {
             pathFinder.reset();
             generateMenuItem.setDisable(false);
             addModeButton.setDisable(false);
+            changeSourceModeMenuItem.setDisable(false);
+            changeTargetModeMenuItem.setDisable(false);
 
             if(startPauseButton.getText().equals("Pause"))
                 startPauseButton.fire();
