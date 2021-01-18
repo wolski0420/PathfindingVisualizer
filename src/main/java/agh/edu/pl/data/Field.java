@@ -1,8 +1,9 @@
 package agh.edu.pl.data;
 
+import agh.edu.pl.observable.FieldSubscriber;
 import agh.edu.pl.observable.Observable;
 
-public class Field extends Observable {
+public class Field extends Observable<FieldSubscriber> {
     private final Point location;
     private Status status = Status.RESETED;
 

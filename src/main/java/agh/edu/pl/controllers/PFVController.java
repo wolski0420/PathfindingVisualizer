@@ -4,7 +4,8 @@ import agh.edu.pl.data.Field;
 import agh.edu.pl.data.Point;
 import agh.edu.pl.data.Status;
 import agh.edu.pl.executable.PathFinder;
-import agh.edu.pl.observable.Subscriber;
+import agh.edu.pl.observable.ExecutorSubscriber;
+import agh.edu.pl.observable.FieldSubscriber;
 import agh.edu.pl.translators.StatusToColor;
 import agh.edu.pl.translators.StatusToDescription;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
 
-public class PFVController implements Subscriber {
+public class PFVController implements FieldSubscriber, ExecutorSubscriber {
     private final StatusToColor statusToColor = new StatusToColor();
     private final StatusToDescription statusToDescription = new StatusToDescription();
     private PathFinder pathFinder;
@@ -54,6 +55,7 @@ public class PFVController implements Subscriber {
 
     public void setPathFinder(PathFinder pathFinder) {
         this.pathFinder = pathFinder;
+        this.pathFinder.getAlgorithmExecutor().addSubscriber(this);
         setGridPane();
         setStartPauseButton();
         setResetButton();
@@ -234,5 +236,11 @@ public class PFVController implements Subscriber {
         );
 
         rectangle.setFill(statusToColor.translate(field.getStatus()));
+    }
+
+    @Override
+    public void informOnFinished() {
+        startPauseButton.fire();
+        startPauseButton.setDisable(true);
     }
 }

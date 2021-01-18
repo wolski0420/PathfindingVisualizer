@@ -3,12 +3,14 @@ package agh.edu.pl.executable;
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.data.Field;
 import agh.edu.pl.data.Status;
+import agh.edu.pl.observable.ExecutorSubscriber;
+import agh.edu.pl.observable.Observable;
 import javafx.animation.AnimationTimer;
 
 // generally in java, we can extend only one class, that's why I have nested AnimationTimer here,
 // I wanted to leave a possibility to extend another class here
 
-public class AlgorithmExecutor {
+public class AlgorithmExecutor extends Observable<ExecutorSubscriber> {
     private final AnimationTimer executor;
     private long prevTime;
     private long delay;
@@ -28,6 +30,7 @@ public class AlgorithmExecutor {
                 if(algorithm.finished()){
                     if(pathIterIndex >= algorithm.getPath().size()){
                         pause();
+                        notifySubscribers();
                         return;
                     }
 
@@ -62,5 +65,10 @@ public class AlgorithmExecutor {
 
     public void setAlgorithm(Algorithm algorithm) {
         this.algorithm = algorithm;
+    }
+
+    @Override
+    protected void notifySubscribers() {
+        subscribers.forEach(ExecutorSubscriber::informOnFinished);
     }
 }

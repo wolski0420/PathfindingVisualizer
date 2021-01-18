@@ -3,6 +3,8 @@ package agh.edu.pl.executable;
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.algorithms.dijkstra.DijkstraAlgorithm;
 import agh.edu.pl.data.*;
+import agh.edu.pl.observable.ExecutorSubscriber;
+import agh.edu.pl.observable.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +103,9 @@ public class PathFinder {
 
     public Field getField(Point point){
         return board.getField(point);
+    }
+
+    public Observable<ExecutorSubscriber> getAlgorithmExecutor(){
+        return algorithmExecutor;
     }
 }
