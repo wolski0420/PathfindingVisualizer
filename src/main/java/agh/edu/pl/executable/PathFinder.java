@@ -73,6 +73,10 @@ public class PathFinder {
         parameters.setTarget(point);
     }
 
+    public void changeDelay(int millis){
+        algorithmExecutor.setDelay(millis);
+    }
+
     public void start(){
         algorithmExecutor.start();
     }

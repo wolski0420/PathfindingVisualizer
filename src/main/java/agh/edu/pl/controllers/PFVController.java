@@ -30,10 +30,6 @@ public class PFVController implements Subscriber {
     @FXML
     public MenuItem generateMenuItem;
     @FXML
-    public Button startPauseButton;
-    @FXML
-    public Button resetButton;
-    @FXML
     public GridPane gridPane;
     @FXML
     public RadioMenuItem fifteenSizeMenuItem;
@@ -48,6 +44,12 @@ public class PFVController implements Subscriber {
     @FXML
     public RadioMenuItem changeSourceModeMenuItem;
     @FXML
+    public Button startPauseButton;
+    @FXML
+    public Button resetButton;
+    @FXML
+    public Spinner<Integer> delaySpinner;
+    @FXML
     public VBox legendVBox;
 
     public void setPathFinder(PathFinder pathFinder) {
@@ -60,6 +62,7 @@ public class PFVController implements Subscriber {
         setAlgorithmMenu();
         setGenerateMenuItem();
         setPointToggleGroup();
+        setDelaySpinner();
         setLegendVBox();
     }
 
@@ -197,6 +200,12 @@ public class PFVController implements Subscriber {
 
             if(startPauseButton.getText().equals("Pause"))
                 startPauseButton.fire();
+        });
+    }
+
+    private void setDelaySpinner(){
+        delaySpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            pathFinder.changeDelay(delaySpinner.getValue());
         });
     }
 
