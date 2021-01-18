@@ -27,7 +27,7 @@ public class AlgorithmExecutor {
 
                 if(algorithm.finished()){
                     if(pathIterIndex >= algorithm.getPath().size()){
-                        stop();
+                        pause();
                         return;
                     }
 

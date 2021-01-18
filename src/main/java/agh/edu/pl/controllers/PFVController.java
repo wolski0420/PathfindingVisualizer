@@ -72,11 +72,11 @@ public class PFVController implements Subscriber {
             node = gridPane.getChildren().remove(gridPane.getChildren().size()-1);
         gridPane.getChildren().clear();
 
-        for (int y = 0; y < pathFinder.getBoard().getHeight(); y++) {
-            for (int x = 0; x < pathFinder.getBoard().getWidth(); x++) {
-                Field field = pathFinder.getBoard().getField(new Point(x, y));
+        for (int y = 0; y < pathFinder.getSizeY(); y++) {
+            for (int x = 0; x < pathFinder.getSizeX(); x++) {
+                Field field = pathFinder.getField(new Point(x, y));
                 field.addSubscriber(this);
-                Rectangle rectangle = new Rectangle((double)750/pathFinder.getBoard().getWidth(), (double)750/pathFinder.getBoard().getHeight());
+                Rectangle rectangle = new Rectangle((double)750/pathFinder.getSizeX(), (double)750/pathFinder.getSizeY());
                 rectangle.setX(x);
                 rectangle.setY(y);
                 rectangle.setFill(statusToColor.translate(field.getStatus()));
@@ -197,6 +197,7 @@ public class PFVController implements Subscriber {
             addModeButton.setDisable(false);
             changeSourceModeMenuItem.setDisable(false);
             changeTargetModeMenuItem.setDisable(false);
+            startPauseButton.setDisable(false);
 
             if(startPauseButton.getText().equals("Pause"))
                 startPauseButton.fire();
@@ -229,7 +230,7 @@ public class PFVController implements Subscriber {
     @Override
     public void update(Field field) {
         Rectangle rectangle = (Rectangle) gridPane.getChildren().get(
-                field.getLocation().y * pathFinder.getBoard().getWidth() + field.getLocation().x
+                field.getLocation().y * pathFinder.getSizeX() + field.getLocation().x
         );
 
         rectangle.setFill(statusToColor.translate(field.getStatus()));

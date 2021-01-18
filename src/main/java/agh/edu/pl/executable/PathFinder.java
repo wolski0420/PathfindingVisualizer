@@ -2,10 +2,7 @@ package agh.edu.pl.executable;
 
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.algorithms.dijkstra.DijkstraAlgorithm;
-import agh.edu.pl.data.Board;
-import agh.edu.pl.data.Parameters;
-import agh.edu.pl.data.Point;
-import agh.edu.pl.data.Status;
+import agh.edu.pl.data.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +91,15 @@ public class PathFinder {
         return algorithms;
     }
 
-    public Board getBoard() {
-        return board;
+    public int getSizeY(){
+        return board.getHeight();
+    }
+
+    public int getSizeX(){
+        return board.getWidth();
+    }
+
+    public Field getField(Point point){
+        return board.getField(point);
     }
 }
