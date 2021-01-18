@@ -7,7 +7,6 @@ import agh.edu.pl.executable.PathFinder;
 import agh.edu.pl.observable.Subscriber;
 import agh.edu.pl.translators.StatusToColor;
 import agh.edu.pl.translators.StatusToDescription;
-import agh.edu.pl.translators.Translator;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -76,7 +75,7 @@ public class PFVController implements Subscriber {
 
                 rectangle.setOnMouseClicked(event -> {
                     if(addModeButton.isSelected()){
-                        pathFinder.addObstacle(new Point((int)rectangle.getX(), (int)rectangle.getY()));
+                        pathFinder.toggleObstacle(new Point((int)rectangle.getX(), (int)rectangle.getY()));
                     }
                 });
             }

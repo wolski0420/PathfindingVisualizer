@@ -58,8 +58,11 @@ public class PathFinder {
         }
     }
 
-    public void addObstacle(Point point){
-        board.getField(point).setStatus(Status.BLOCKED);
+    public void toggleObstacle(Point point){
+        if(board.getField(point).getStatus() == Status.BLOCKED)
+            board.getField(point).setStatus(Status.RESETED);
+        else
+            board.getField(point).setStatus(Status.BLOCKED);
     }
 
     public void changeSource(Point point){
