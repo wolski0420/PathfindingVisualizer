@@ -28,14 +28,14 @@ public class PathFinder {
     }
 
     private void init(){
-        resize(10,10);
+        resize(15,15);
 
         algorithms.add(new DijkstraAlgorithm(parameters, board));
         // @TODO more algorithms to add
         algorithmExecutor.setAlgorithm(algorithms.get(0));
 
-        changeSource(new Point(0,5));
-        changeTarget(new Point(9,5));
+        changeSource(new Point(0,7));
+        changeTarget(new Point(14,7));
     }
 
     public void resize(int width, int height){

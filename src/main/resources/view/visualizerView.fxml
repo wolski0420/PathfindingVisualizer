@@ -9,16 +9,15 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             stylesheets="css/styles.css"
-            fx:controller="agh.edu.pl.controllers.PFVController"
-            prefHeight="800.0" prefWidth="800.0">
+            fx:controller="agh.edu.pl.controllers.PFVController">
     <top>
         <HBox>
             <children>
                 <MenuBar>
                     <Menu text="Size">
-                        <RadioMenuItem text="10x10" fx:id="tenSizeMenuItem"/>
                         <RadioMenuItem text="15x15" fx:id="fifteenSizeMenuItem"/>
                         <RadioMenuItem text="20x20" fx:id="twentySizeMenuItem"/>
+                        <RadioMenuItem text="25x25" fx:id="twentyFiveSizeMenuItem"/>
                     </Menu>
 
                     <Menu fx:id="algorithmMenu" text="Algorithm">
@@ -35,7 +34,7 @@
 
                 </Button>
 
-                <Button text="Reset" onAction="#handleResetButton" styleClass="reset-button">
+                <Button fx:id="resetButton" text="Reset" styleClass="reset-button">
 
                 </Button>
             </children>
@@ -45,7 +44,7 @@
     <center>
         <HBox>
             <children>
-                <GridPane fx:id="gridPane">
+                <GridPane fx:id="gridPane" prefHeight="750.0" prefWidth="750.0" styleClass="grid">
 
                 </GridPane>
             </children>

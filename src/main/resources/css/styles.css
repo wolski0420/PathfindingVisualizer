@@ -5,3 +5,7 @@
 .reset-button{
     -fx-background-color: ORANGE;
 }
+
+.grid{
+    -fx-grid-lines-visible: true;
+}
