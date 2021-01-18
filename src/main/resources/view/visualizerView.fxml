@@ -8,6 +8,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             stylesheets="css/styles.css"
@@ -86,9 +87,25 @@
     </center>
 
     <right>
-        <VBox fx:id="legendVBox" alignment="TOP_CENTER">
+        <VBox alignment="TOP_CENTER">
             <children>
-                <Label text="Legend:" styleClass="legend">
+                <VBox fx:id="legendVBox" alignment="TOP_CENTER">
+                    <children>
+                        <Label text="Legend:" styleClass="legend">
+                            <VBox.margin>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <Label text="Instruction" styleClass="legend">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="15.0" />
+                    </VBox.margin>
+                </Label>
+
+                <Label styleClass="label" wrapText="true" maxWidth="200" text="You can change the size by selecting the right option in size menu. If you want to change algorithm, the next menu allows you to do it. Generating obstacles is possible thanks to center menu option, there you can generate randomly by clicking Generate, or enter Add mode, by clicking next menu item. If you choose Add mode, click on the field (on board) which you want to mark as obstacle. The same you can do if you want to change source or target. Have fun!">
                     <VBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                     </VBox.margin>
