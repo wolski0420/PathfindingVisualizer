@@ -2,16 +2,26 @@ package agh.edu.pl.controllers;
 
 import agh.edu.pl.data.Field;
 import agh.edu.pl.data.Point;
+import agh.edu.pl.data.Status;
 import agh.edu.pl.executable.PathFinder;
 import agh.edu.pl.observable.Subscriber;
 import agh.edu.pl.translators.StatusToColor;
+import agh.edu.pl.translators.StatusToDescription;
+import agh.edu.pl.translators.Translator;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Arrays;
+
 public class PFVController implements Subscriber {
+    private final StatusToColor statusToColor = new StatusToColor();
+    private final StatusToDescription statusToDescription = new StatusToDescription();
     private PathFinder pathFinder;
     private ToggleGroup sizeToggleGroup;
     private ToggleGroup algorithmToggleGroup;
@@ -33,6 +43,8 @@ public class PFVController implements Subscriber {
     public RadioMenuItem twentyFiveSizeMenuItem;
     @FXML
     public CheckMenuItem addModeButton;
+    @FXML
+    public VBox legendVBox;
 
     public void setPathFinder(PathFinder pathFinder) {
         this.pathFinder = pathFinder;
@@ -43,6 +55,7 @@ public class PFVController implements Subscriber {
         setRadioMenuItems();
         setAlgorithmMenu();
         setGenerateMenuItem();
+        setLegendVBox();
     }
 
     private void setGridPane(){
@@ -58,7 +71,7 @@ public class PFVController implements Subscriber {
                 Rectangle rectangle = new Rectangle((double)750/pathFinder.getBoard().getWidth(), (double)750/pathFinder.getBoard().getHeight());
                 rectangle.setX(x);
                 rectangle.setY(y);
-                rectangle.setFill(StatusToColor.translate(field.getStatus()));
+                rectangle.setFill(statusToColor.translate(field.getStatus()));
                 gridPane.add(rectangle, x, y);
 
                 rectangle.setOnMouseClicked(event -> {
@@ -155,7 +168,7 @@ public class PFVController implements Subscriber {
         });
     }
 
-    public void setResetButton() {
+    private void setResetButton() {
         resetButton.setOnAction(event -> {
             pathFinder.reset();
             generateMenuItem.setDisable(false);
@@ -166,12 +179,29 @@ public class PFVController implements Subscriber {
         });
     }
 
+    private void setLegendVBox(){
+        Arrays.stream(Status.values()).forEach(status -> {
+            HBox legendItemBox = new HBox();
+
+            Rectangle rectangle = new Rectangle(30,20);
+            rectangle.setFill(statusToColor.translate(status));
+            HBox.setMargin(rectangle, new Insets(10,10,10,10));
+
+            Label label = new Label();
+            label.setText(" - " + statusToDescription.translate(status));
+            HBox.setMargin(label, new Insets(10,10,10,10));
+
+            legendItemBox.getChildren().addAll(rectangle, label);
+            legendVBox.getChildren().add(legendItemBox);
+        });
+    }
+
     @Override
     public void update(Field field) {
         Rectangle rectangle = (Rectangle) gridPane.getChildren().get(
                 field.getLocation().y * pathFinder.getBoard().getWidth() + field.getLocation().x
         );
 
-        rectangle.setFill(StatusToColor.translate(field.getStatus()));
+        rectangle.setFill(statusToColor.translate(field.getStatus()));
     }
 }

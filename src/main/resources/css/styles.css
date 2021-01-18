@@ -9,3 +9,17 @@
 .grid{
     -fx-grid-lines-visible: true;
 }
+
+.menu-bar{
+    -fx-font-size: 15;
+    -fx-spacing: 15;
+}
+
+.button, .label{
+    -fx-font-size: 15;
+}
+
+.legend{
+    -fx-font-weight: bold;
+    -fx-font-size: 17;
+}
