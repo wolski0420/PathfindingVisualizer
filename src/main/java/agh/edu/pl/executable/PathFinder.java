@@ -1,8 +1,9 @@
 package agh.edu.pl.executable;
 
-import agh.edu.pl.algorithms.astarsearch.AStarSearchAlgorithm;
+import agh.edu.pl.algorithms.astar.AStarAlgorithm;
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.algorithms.dijkstra.DijkstraAlgorithm;
+import agh.edu.pl.algorithms.greedybf.GreedyBestFirstAlgorithm;
 import agh.edu.pl.data.*;
 import agh.edu.pl.observable.ExecutorSubscriber;
 import agh.edu.pl.observable.Observable;
@@ -31,7 +32,8 @@ public class PathFinder {
         resize(15,15);
 
         algorithms.add(new DijkstraAlgorithm(parameters, board));
-        algorithms.add(new AStarSearchAlgorithm(parameters, board));
+        algorithms.add(new AStarAlgorithm(parameters, board));
+        algorithms.add(new GreedyBestFirstAlgorithm(parameters, board));
         // @TODO more algorithms to add
         algorithmExecutor.setAlgorithm(algorithms.get(0));
 

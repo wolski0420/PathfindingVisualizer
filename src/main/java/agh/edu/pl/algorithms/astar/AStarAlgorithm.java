@@ -1,4 +1,4 @@
-package agh.edu.pl.algorithms.astarsearch;
+package agh.edu.pl.algorithms.astar;
 
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.algorithms.AlgorithmData;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class AStarSearchAlgorithm extends AlgorithmData implements Algorithm {
+public class AStarAlgorithm extends AlgorithmData implements Algorithm {
     private double[][] gValues;
     private double[][] fValues;
     private Point[][] predecessors;
@@ -19,7 +19,7 @@ public class AStarSearchAlgorithm extends AlgorithmData implements Algorithm {
     private boolean started;
     private boolean finished;
 
-    public AStarSearchAlgorithm(Parameters parameters, Board board) {
+    public AStarAlgorithm(Parameters parameters, Board board) {
         super(parameters, board);
         open = new HashSet<>();
         closed = new HashSet<>();
