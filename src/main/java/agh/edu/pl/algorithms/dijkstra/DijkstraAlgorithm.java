@@ -51,6 +51,11 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
             Point current = queue.poll().getPoint();
 
             if(board.getField(current).getStatus() != Status.VISITED){
+                if(current.equals(parameters.getTarget())){
+                    queue.clear();
+                    return;
+                }
+
                 if(board.getField(current).getStatus() != Status.SOURCE &&
                         board.getField(current).getStatus() != Status.TARGET)
                     board.getField(current).setStatus(Status.VISITED);
@@ -71,9 +76,6 @@ public class DijkstraAlgorithm extends AlgorithmData implements Algorithm {
 
                     }
                 });
-
-                if(current.equals(parameters.getTarget()))
-                    queue.clear();
             }
         }
         else{

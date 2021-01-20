@@ -1,5 +1,6 @@
 package agh.edu.pl.executable;
 
+import agh.edu.pl.algorithms.astarsearch.AStarSearchAlgorithm;
 import agh.edu.pl.algorithms.Algorithm;
 import agh.edu.pl.algorithms.dijkstra.DijkstraAlgorithm;
 import agh.edu.pl.data.*;
@@ -30,6 +31,7 @@ public class PathFinder {
         resize(15,15);
 
         algorithms.add(new DijkstraAlgorithm(parameters, board));
+        algorithms.add(new AStarSearchAlgorithm(parameters, board));
         // @TODO more algorithms to add
         algorithmExecutor.setAlgorithm(algorithms.get(0));
 
