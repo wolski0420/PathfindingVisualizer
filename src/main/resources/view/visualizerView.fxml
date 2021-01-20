@@ -46,25 +46,31 @@
                     <children>
                         <Button fx:id="startPauseButton" text="Start" styleClass="start-pause-button">
                             <HBox.margin>
-                                <Insets left="20.0" right="10.0"/>
+                                <Insets left="12.0" right="8.0"/>
                             </HBox.margin>
                         </Button>
 
                         <Button fx:id="resetButton" text="Reset" styleClass="reset-button">
                             <HBox.margin>
-                                <Insets left="10.0" right="10.0" />
+                                <Insets left="8.0" right="8.0" />
                             </HBox.margin>
                         </Button>
 
-                        <Label text="Delay: ">
+                        <Button fx:id="clearButton" text="Clear" styleClass="clear-button">
+                            <HBox.margin>
+                                <Insets left="8.0" right="10.0" />
+                            </HBox.margin>
+                        </Button>
+
+                        <Label text="Delay:">
                             <HBox.margin>
                                 <Insets left="10.0"/>
                             </HBox.margin>
                         </Label>
 
-                        <Spinner fx:id="delaySpinner" prefWidth="80">
+                        <Spinner fx:id="delaySpinner" prefWidth="70">
                             <HBox.margin>
-                                <Insets left="20.0" right="10.0"/>
+                                <Insets left="10.0"/>
                             </HBox.margin>
                             <valueFactory>
                                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000" initialValue="100" amountToStepBy="10"/>

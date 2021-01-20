@@ -49,6 +49,8 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
     @FXML
     public Button resetButton;
     @FXML
+    public Button clearButton;
+    @FXML
     public Spinner<Integer> delaySpinner;
     @FXML
     public VBox legendVBox;
@@ -59,6 +61,7 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
         setGridPane();
         setStartPauseButton();
         setResetButton();
+        setClearButton();
         setSizeToggleGroup();
         setSizeMenuItems();
         setAlgorithmMenu();
@@ -108,6 +111,7 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
                 pathFinder.start();
                 startPauseButton.setText("Pause");
                 startPauseButton.setStyle("-fx-background-color: #fd2b2b");
+                clearButton.setDisable(true);
                 generateMenuItem.setDisable(true);
                 addModeButton.setSelected(false);
                 addModeButton.setDisable(true);
@@ -171,6 +175,7 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
             radioMenuItem.setText(algorithm.getName());
             radioMenuItem.setOnAction(event -> {
                 pathFinder.chooseAlgorithm(algorithm);
+                resetButton.fire();
             });
             radioMenuItem.setToggleGroup(algorithmToggleGroup);
             algorithmMenu.getItems().add(radioMenuItem);
@@ -200,9 +205,17 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
             changeSourceModeMenuItem.setDisable(false);
             changeTargetModeMenuItem.setDisable(false);
             startPauseButton.setDisable(false);
+            clearButton.setDisable(false);
 
             if(startPauseButton.getText().equals("Pause"))
                 startPauseButton.fire();
+        });
+    }
+
+    private void setClearButton(){
+        clearButton.setOnAction(event -> {
+            pathFinder.resetAll();
+            startPauseButton.setDisable(false);
         });
     }
 
@@ -242,5 +255,6 @@ public class PFVController implements FieldSubscriber, ExecutorSubscriber {
     public void informOnFinished() {
         startPauseButton.fire();
         startPauseButton.setDisable(true);
+        clearButton.setDisable(false);
     }
 }

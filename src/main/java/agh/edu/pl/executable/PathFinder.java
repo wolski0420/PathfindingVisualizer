@@ -46,6 +46,7 @@ public class PathFinder {
 
     public void chooseAlgorithm(Algorithm algorithm){
         algorithmExecutor.setAlgorithm(algorithm);
+        reset();
     }
 
     public void generateObstacles(){
@@ -88,7 +89,12 @@ public class PathFinder {
 
     public void reset(){
         algorithmExecutor.reset();
-        board.clear();
+        board.clearExecuted();
+    }
+
+    public void resetAll(){
+        algorithmExecutor.reset();
+        board.clearAll();
     }
 
     public List<Algorithm> getAlgorithms() {

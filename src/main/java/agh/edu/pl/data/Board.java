@@ -39,7 +39,16 @@ public class Board {
         return point.x >= 0 && point.x < width && point.y >= 0 && point.y < height;
     }
 
-    public void clear(){
+    public void clearExecuted(){
+        Arrays.stream(fields)
+                .flatMap(Arrays::stream)
+                .filter(field -> field.getStatus() == Status.PROCESSING ||
+                        field.getStatus() == Status.VISITED ||
+                        field.getStatus() == Status.IN_PATH)
+                .forEach(field -> field.setStatus(Status.RESETED));
+    }
+
+    public void clearAll(){
         Arrays.stream(fields)
                 .flatMap(Arrays::stream)
                 .filter(field -> field.getStatus() != Status.TARGET && field.getStatus() != Status.SOURCE)

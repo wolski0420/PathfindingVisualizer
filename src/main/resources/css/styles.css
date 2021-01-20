@@ -6,13 +6,17 @@
     -fx-background-color: ORANGE;
 }
 
+.clear-button{
+    -fx-background-color: #2dd5ff;
+}
+
 .grid{
     -fx-grid-lines-visible: true;
 }
 
 .menu-bar{
     -fx-font-size: 15;
-    -fx-spacing: 15;
+    -fx-spacing: 8;
 }
 
 .button, .label{
